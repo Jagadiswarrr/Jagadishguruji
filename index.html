@@ -2,33 +2,93 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to My Site</title>
+    <title>SA II LO Achievement Analysis</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f0f4f8;
-            text-align: center;
-            padding: 50px;
+            background: #eef2f7;
+            padding: 40px;
+            color: #333;
         }
         h1 {
-            color: #2c3e50;
+            text-align: center;
+            color: #2e3b55;
         }
-        p {
-            color: #34495e;
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
         }
-        footer {
-            margin-top: 40px;
-            font-size: 14px;
-            color: #999;
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        label {
+            flex: 1;
+            padding-right: 10px;
+            font-weight: bold;
+        }
+        input {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+        }
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            color: #00796b;
+            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>This is a simple one-page site hosted on GitHub Pages.</p>
-    <footer>
-        Made by Jagadish Ji | © 2025
-    </footer>
+    <h1>Helping Teachers in SA II LO Achievement Analysis</h1>
+
+    <div class="container">
+        <div class="form-group">
+            <label for="loMarks">LO Marks:</label>
+            <input type="number" id="loMarks" placeholder="e.g., 5">
+        </div>
+        <div class="form-group">
+            <label for="totalMarks">Total LO Marks:</label>
+            <input type="number" id="totalMarks" placeholder="e.g., 350">
+        </div>
+        <div class="form-group">
+            <label for="numStudents">No of Students:</label>
+            <input type="number" id="numStudents" placeholder="e.g., 100">
+        </div>
+
+        <div class="result" id="percentageResult">Percentage: --%</div>
+    </div>
+
+    <script>
+        const loMarks = document.getElementById('loMarks');
+        const totalMarks = document.getElementById('totalMarks');
+        const numStudents = document.getElementById('numStudents');
+        const result = document.getElementById('percentageResult');
+
+        function calculatePercentage() {
+            const marks = parseFloat(loMarks.value);
+            const total = parseFloat(totalMarks.value);
+            const students = parseFloat(numStudents.value);
+
+            if (marks > 0 && total >= 0 && students > 0) {
+                const percent = Math.round((total * 100) / (marks * students) * 10) / 10;
+                result.textContent = `Percentage: ${percent}%`;
+            } else {
+                result.textContent = "Percentage: --%";
+            }
+        }
+
+        loMarks.addEventListener('input', calculatePercentage);
+        totalMarks.addEventListener('input', calculatePercentage);
+        numStudents.addEventListener('input', calculatePercentage);
+    </script>
 </body>
 </html>
