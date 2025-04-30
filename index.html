@@ -2,25 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>SA II LO Achievement Analysis</title>
+    <title>Jagadish Guruji</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #eef2f7;
-            padding: 40px;
+            background: #f5f8fa;
             color: #333;
+            margin: 0;
+            padding: 40px 20px;
         }
-        h1 {
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        h1, h2 {
             text-align: center;
             color: #2e3b55;
         }
-        .container {
-            max-width: 600px;
-            margin: auto;
+        .profile, .quote, .footer {
             background: #fff;
-            padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 10px #ccc;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        .quote {
+            font-style: italic;
+            font-size: 17px;
+            color: #444;
+            border-left: 5px solid #2e3b55;
+            padding-left: 15px;
+        }
+        .quote-author {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .form-section {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #ccc;
+            padding: 30px;
         }
         .form-group {
             display: flex;
@@ -29,8 +51,8 @@
         }
         label {
             flex: 1;
-            padding-right: 10px;
             font-weight: bold;
+            margin-right: 10px;
         }
         input {
             flex: 1;
@@ -39,32 +61,65 @@
             border-radius: 5px;
         }
         .result {
-            margin-top: 20px;
             text-align: center;
             font-size: 18px;
-            color: #00796b;
             font-weight: bold;
+            color: #00796b;
+            margin-top: 20px;
+        }
+        .date {
+            text-align: right;
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        footer {
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
-    <h1>Helping Teachers in SA II LO Achievement Analysis</h1>
-
     <div class="container">
-        <div class="form-group">
-            <label for="loMarks">LO Marks:</label>
-            <input type="number" id="loMarks" placeholder="e.g., 5">
-        </div>
-        <div class="form-group">
-            <label for="totalMarks">Total LO Marks:</label>
-            <input type="number" id="totalMarks" placeholder="e.g., 350">
-        </div>
-        <div class="form-group">
-            <label for="numStudents">No of Students:</label>
-            <input type="number" id="numStudents" placeholder="e.g., 100">
+        <div class="profile">
+            <h1>CHINTA JAGADESWARA RAO</h1>
+            <p><strong>Qualification:</strong> B.Sc, MCA, D.El.Ed</p>
+            <p><strong>Designation:</strong> Assistant Teacher</p>
+            <p><strong>School:</strong> PUPS Singipur, Surada</p>
+            <p><strong>Current Deployment:</strong> Badapalli Ashram School, Digapahandi</p>
+            <p><strong>Contact:</strong> +91 7894768835</p>
+            <p><strong>Email:</strong> jagadeswarrr@gmail.com</p>
         </div>
 
-        <div class="result" id="percentageResult">Percentage: --%</div>
+        <div class="quote">
+            “Choosing inefficiency and avoiding excellence in serving our children is not just negligence — it is a betrayal of public trust and a theft from the nation's future.”
+            <div class="quote-author">— Jagadish Guruji</div>
+        </div>
+
+        <div class="date">Date: 30.04.2025</div>
+
+        <div class="form-section">
+            <h2>Helping Teachers in SA II LO Achievement Analysis</h2>
+            <div class="form-group">
+                <label for="loMarks">LO Marks:</label>
+                <input type="number" id="loMarks" placeholder="e.g., 5">
+            </div>
+            <div class="form-group">
+                <label for="totalMarks">Total LO Marks:</label>
+                <input type="number" id="totalMarks" placeholder="e.g., 350">
+            </div>
+            <div class="form-group">
+                <label for="numStudents">No of Students:</label>
+                <input type="number" id="numStudents" placeholder="e.g., 100">
+            </div>
+            <div class="result" id="percentageResult">Percentage: --%</div>
+        </div>
+
+        <footer>
+            © 2025 Jagadish Guruji
+        </footer>
     </div>
 
     <script>
