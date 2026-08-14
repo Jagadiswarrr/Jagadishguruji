@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Teacher Leave Application</title>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body { font-family: Arial; margin: 20px; }
+    .form-container { max-width: 400px; margin: auto; }
+    label { display: block; margin: 10px 0 5px; }
+    input, select, button { width: 100%; padding: 8px; margin-bottom: 10px; }
+    button { background: #4CAF50; color: white; border: none; cursor: pointer; }
+    button:hover { background: #45a049; }
+  </style>
+</head>
+<body>
+
+<h2>Teacher Leave Application</h2>
+<div class="form-container">
+  <label>Teacher Name:</label>
+  <input type="text" id="teacherName" readonly>
+
+  <label>Designation:</label>
+  <input type="text" id="designation" readonly>
+
+  <label>Start Date:</label>
+  <input type="date" id="startDate">
+
+  <label>End Date:</label>
+  <input type="date" id="endDate">
+
+  <label>Reason:</label>
+  <select id="reason">
+    <option value="Fever">I am suffering from fever</option>
+    <option value="Cold">I am suffering from cold</option>
+    <option value="Family Ritual">I need to attend a family ritual</option>
+    <option value="Native Place">I need to go to my native place</option>
+  </select>
+
+  <label>Total Days:</label>
+  <input type="text" id="totalDays" readonly>
+
+  <button onclick="generatePDF()">Generate Leave Letter</button>
+  <button onclick="saveToFirestore()">Save Leave Request</button>
+</div>
+
+<script>
+    // Initialize Firebase again for this page
+  const firebaseConfig = {
+      apiKey: "AIzaSyC_62TIZPMqqau9HbVNXtU0vl0hx7KKwzs",
+      authDomain: "jagadishguruji-e3740.firebaseapp.com",
+      projectId: "jagadishguruji-e3740",
+      storageBucket: "jagadishguruji-e3740.firebasestorage.app",
+      messagingSenderId: "42042944668",
+      appId: "1:42042944668:web:98c0ce8c215d29a8d49159",
+      measurementId: "G-QZYFS2JSP2"
+  };
+
+  const app = firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore(app);
+
+    // Auto-fill name & designation
+    document.getElementById("teacherName").value = localStorage.getItem("teacherName");
+    document.getElementById("designation").value = localStorage.getItem("designation");
+
+    // Calculate total days
+    document.getElementById("startDate").addEventListener("change", calcDays);
+    document.getElementById("endDate").addEventListener("change", calcDays);
+
+    function calcDays() {
+        let start = new Date(document.getElementById("startDate").value);
+        let end = new Date(document.getElementById("endDate").value);
+        if (start && end && end >= start) {
+            let diff = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
+            document.getElementById("totalDays").value = diff;
+        } else {
+            document.getElementById("totalDays").value = "";
+        }
+    }
+
+    // Generate PDF
+    function generatePDF() {
+      const { jsPDF } = window.jspdf;
+    let pdf = new jsPDF();
+
+    let today = new Date().toLocaleDateString();
+    let teacherName = document.getElementById("teacherName").value;
+    let designation = document.getElementById("designation").value;
+    let startDate = document.getElementById("startDate").value;
+    let endDate = document.getElementById("endDate").value;
+    let reason = document.getElementById("reason").value;
+    let totalDays = document.getElementById("totalDays").value;
+
+    pdf.text(`Date: ${today}`, 150, 10);
+    pdf.text(`To,\nThe Headmaster,\nOur School`, 20, 30);
+    pdf.text(`Respected Sir/Madam,`, 20, 60);
+    pdf.text(`I, ${teacherName}, (${designation}), request leave from ${startDate} to ${endDate} (${totalDays} days) due to ${reason}.`, 20, 80);
+    pdf.text(`Kindly grant me leave for the above-mentioned period.`, 20, 100);
+    pdf.text(`Thanking you,\n\nYours faithfully,\n${teacherName}`, 20, 130);
+
+    pdf.save("Leave_Application.pdf");
+    }
+
+    // Save leave request to Firestore
+    async function saveToFirestore() {
+        try {
+            await db.collection("leave_requests").add({
+                name: document.getElementById("teacherName").value,
+                designation: document.getElementById("designation").value,
+                startDate: document.getElementById("startDate").value,
+                endDate: document.getElementById("endDate").value,
+                reason: document.getElementById("reason").value,
+                totalDays: document.getElementById("totalDays").value,
+                timestamp: new Date()
+            });
+            alert("Leave request saved!");
+        } catch (e) {
+            console.error("Error saving leave:", e);
+            alert("Failed to save leave request!");
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <title>Teacher Login</title>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+</head>
+<body>
+  <h2>Teacher Login</h2>
+  <input type="text" id="username" placeholder="Enter Username"><br><br>
+  <input type="password" id="password" placeholder="Enter Password"><br><br>
+  <button onclick="login()">Login</button>
+
+  <p id="message" style="color:red;"></p>
+
+  <script type="module">
+    // ✅ Import Firebase Modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // ✅ Your Firebase Config
+    const firebaseConfig = {
+      apiKey: "AIzaSyC_62TIZPMqqau9HbVNXtU0vl0hx7KKwzs",
+      authDomain: "jagadishguruji-e3740.firebaseapp.com",
+      projectId: "jagadishguruji-e3740",
+      storageBucket: "jagadishguruji-e3740.firebasestorage.app",
+      messagingSenderId: "42042944668",
+      appId: "1:42042944668:web:98c0ce8c215d29a8d49159",
+      measurementId: "G-QZYFS2JSP2"
+    };
+
+    // ✅ Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // ✅ Login Function
+    window.login = async function () {
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+      const msg = document.getElementById("message");
+
+      if (!username || !password) {
+        msg.innerText = "Please enter username and password";
+        return;
+      }
+
+      try {
+        const userRef = doc(db, "config", username);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const savedPassword = userSnap.data().password;
+          if (savedPassword === password) {
+            msg.style.color = "green";
+            msg.innerText = "Login successful! Redirecting...";
+            setTimeout(() => {
+              window.location.href = "teachers.html";
+            }, 1000);
+          } else {
+            msg.innerText = "Invalid password!";
+          }
+        } else {
+          msg.innerText = "User not found!";
+        }
+      } catch (error) {
+        msg.innerText = "Error: " + error.message;
+      }
+    };
+  </script>
+</body>
+</html>
