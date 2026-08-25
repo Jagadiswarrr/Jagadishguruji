@@ -359,3 +359,27 @@ Only after local testing succeeds:
     Firebase Hosting
 
 This prevents unnecessary broken deployments.
+
+
+
+## 25-08-2026 — Teacher Leave Module PDF Improvement
+
+Completed:
+- Improved Teacher Leave Application PDF generation.
+- Changed PDF format to official school leave application style.
+- Added Subject line and proper paragraph spacing.
+- Changed reason options to full sentences.
+- Added Indian date format (DD-MM-YYYY).
+- PDF filename now uses:
+  TeacherName_Date.pdf
+
+Example:
+Kanya_Kumari_Majhi_25-08-2026.pdf
+
+Git:
+- Commit: Improved teacher leave PDF format
+- Commit ID: 9633d1e
+
+Next:
+- Test Firestore leave_requests saving.
+- Plan teacher signature upload feature.

@@ -332,3 +332,45 @@ or:
 depending on the final architecture.
 
 Do not treat the current password system as production-grade security.
+
+
+## Firebase Teacher Leave Module
+
+### Data Flow
+
+Login Page
+    ↓
+Firebase Firestore (config collection)
+    ↓
+localStorage
+    ↓
+teachers.html
+
+
+### PDF Generation
+
+Library:
+jsPDF
+
+Features:
+- Generate leave application PDF
+- Dynamic teacher name
+- Dynamic designation
+- Dynamic dates
+- Dynamic reason
+- Automatic filename generation
+
+
+### Firebase Firestore
+
+Collection:
+leave_requests
+
+Fields:
+- name
+- designation
+- startDate
+- endDate
+- reason
+- totalDays
+- timestamp
