@@ -62,10 +62,10 @@
 
         <label>Reason:</label>
         <select id="reason">
-            <option value="Fever">I am suffering from fever</option>
-            <option value="Cold">I am suffering from cold</option>
-            <option value="Family Ritual">I need to attend a family ritual</option>
-            <option value="Native Place">I need to go to my native place</option>
+            <option value="I am suffering from fever">Fever</option>
+            <option value="I am suffering from cold">Cold</option>
+            <option value="I need to attend a family ritual">Family Ritual</option>
+            <option value="I need to go to my native place">Go to Native Place</option>
         </select>
 
         <label>Total Days:</label>
@@ -210,8 +210,8 @@
             const pdf = new jsPDF();
 
 
-            const today =
-                new Date().toLocaleDateString();
+            //const today = new Date().toLocaleDateString();
+            const today = new Date().toLocaleDateString("en-GB") .replaceAll("/","-");
 
             const teacherName =
                 document.getElementById("teacherName").value;
@@ -231,52 +231,87 @@
             const totalDays =
                 document.getElementById("totalDays").value;
 
+            let y=20;
+            pdf.setFontSize(12);
 
+         // Date (right side)
             pdf.text(
                 `Date: ${today}`,
                 150,
-                10
+                y
             );
 
-
+            y+=25;
             pdf.text(
-                "To,\nThe Headmaster,\nOur School",
+                [
+                      "To,",
+                      "The Headmaster,",
+                      "Badapalli Ashram School, Badapalli"
+
+                
+                ],
                 20,
-                30
+                y
             );
 
 
+             y += 35;
+             // Subject
             pdf.text(
-                "Respected Sir/Madam,",
-                20,
-                60
-            );
+                     "Subject: Prayer for sanction of leave.",
+                        20,
+                         y
+                    );
+
+            y += 20;
+            // Salutation
+            pdf.text( "Respected Sir/Madam,", 20, y );
+
+            y += 20;
+            // Main paragraph- The BODY
+
+            let paragraph1 = `I, ${teacherName}, ${designation}, request you to kindly grant me leave from ${startDate} to ${endDate} for ${totalDays} days as ${reason}.`;
+            let lines1 = pdf.splitTextToSize( paragraph1, 170);
+            
+            
+            pdf.text( lines1, 20, y );
+
+            y += lines1.length * 7 + 10;
+            // Request paragraph
+            let paragraph2 = "Therefore, I request you to kindly sanction my leave for the above-mentioned period.";
+            let lines2 = pdf.splitTextToSize( paragraph2, 170 );
+
+            pdf.text( lines2, 20, y );
 
 
+            y += lines2.length * 7 + 20;
+
+
+            // Closing
             pdf.text(
-                `I, ${teacherName}, (${designation}), request leave from ${startDate} to ${endDate} (${totalDays} days) due to ${reason}.`,
-                20,
-                80
-            );
+                     [
+                     "Thanking you,",
+                     "",
+                     "Yours faithfully,",
+                     teacherName,
+                    designation
+                    ],
+                    20,
+                    y
+                    );
 
 
-            pdf.text(
-                "Kindly grant me leave for the above-mentioned period.",
-                20,
-                100
-            );
+                //const fileName = teacherName.replaceAll(" ", "_") +  "_" + today.replaceAll("/", "-") + ".pdf";
+
+                const fileName = teacherName.trim().replace(/\s+/g,"_")  + "_"  + today.replaceAll("/","-") + ".pdf";
+
+                pdf.save(fileName);
 
 
-            pdf.text(
-                `Thanking you,\n\nYours faithfully,\n${teacherName}`,
-                20,
-                130
-            );
 
 
-            pdf.save(
-                "Leave_Application.pdf"
-            );
+
+            
 
         };
 
