@@ -1,71 +1,113 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-  <title>Teacher Login</title>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"></script>
+    <title>Teacher Login</title>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC_62TIZPMqqau9HbVNXtU0vl0hx7KKwzs",
+            authDomain: "jagadishguruji-e3740.firebaseapp.com",
+            projectId: "jagadishguruji-e3740",
+            storageBucket: "jagadishguruji-e3740.firebasestorage.app",
+            messagingSenderId: "42042944668",
+            appId: "1:42042944668:web:98c0ce8c215d29a8d49159",
+            measurementId: "G-QZYFS2JSP2"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Login Function
+        window.login = async function () {
+
+            const username = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value;
+            const msg = document.getElementById("message");
+
+            if (!username || !password) {
+                msg.style.color = "red";
+                msg.innerText = "Please enter username and password";
+                return;
+            }
+
+            try {
+
+                // Find the teacher document
+                const userRef = doc(db, "config", username);
+                const userSnap = await getDoc(userRef);
+
+                if (userSnap.exists()) {
+
+                    const userData = userSnap.data();
+
+                    const savedPassword = userData.password;
+                    const teacherName = userData.name;
+                    const designation = userData.Designation;
+
+                    // Check password
+                    if (savedPassword === password) {
+
+                        // Save teacher information for teachers.html
+                        localStorage.setItem("teacherName", teacherName);
+                        localStorage.setItem("designation", designation);
+
+                        msg.style.color = "green";
+                        msg.innerText = "Login successful! Redirecting...";
+
+                        setTimeout(() => {
+                            window.location.href = "teachers.html";
+                        }, 1000);
+
+                    } else {
+
+                        msg.style.color = "red";
+                        msg.innerText = "Invalid password!";
+
+                    }
+
+                } else {
+
+                    msg.style.color = "red";
+                    msg.innerText = "User not found!";
+
+                }
+
+            } catch (error) {
+
+                console.error(error);
+                msg.style.color = "red";
+                msg.innerText = "Error: " + error.message;
+
+            }
+        };
+    </script>
+
 </head>
+
 <body>
-  <h2>Teacher Login</h2>
-  <input type="text" id="username" placeholder="Enter Username"><br><br>
-  <input type="password" id="password" placeholder="Enter Password"><br><br>
-  <button onclick="login()">Login</button>
 
-  <p id="message" style="color:red;"></p>
+    <h2>Teacher Login</h2>
 
-  <script type="module">
-    // ✅ Import Firebase Modules
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <input type="text"
+           id="username"
+           placeholder="Enter Username">
 
-    // ✅ Your Firebase Config
-    const firebaseConfig = {
-      apiKey: "AIzaSyC_62TIZPMqqau9HbVNXtU0vl0hx7KKwzs",
-      authDomain: "jagadishguruji-e3740.firebaseapp.com",
-      projectId: "jagadishguruji-e3740",
-      storageBucket: "jagadishguruji-e3740.firebasestorage.app",
-      messagingSenderId: "42042944668",
-      appId: "1:42042944668:web:98c0ce8c215d29a8d49159",
-      measurementId: "G-QZYFS2JSP2"
-    };
+    <br><br>
 
-    // ✅ Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+    <input type="password"
+           id="password"
+           placeholder="Enter Password">
 
-    // ✅ Login Function
-    window.login = async function () {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      const msg = document.getElementById("message");
+    <br><br>
 
-      if (!username || !password) {
-        msg.innerText = "Please enter username and password";
-        return;
-      }
+    <button onclick="login()">Login</button>
 
-      try {
-        const userRef = doc(db, "config", username);
-        const userSnap = await getDoc(userRef);
+    <p id="message" style="color:red;"></p>
 
-        if (userSnap.exists()) {
-          const savedPassword = userSnap.data().password;
-          if (savedPassword === password) {
-            msg.style.color = "green";
-            msg.innerText = "Login successful! Redirecting...";
-            setTimeout(() => {
-              window.location.href = "teachers.html";
-            }, 1000);
-          } else {
-            msg.innerText = "Invalid password!";
-          }
-        } else {
-          msg.innerText = "User not found!";
-        }
-      } catch (error) {
-        msg.innerText = "Error: " + error.message;
-      }
-    };
-  </script>
 </body>
 </html>
