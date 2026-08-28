@@ -1,113 +1,1190 @@
-﻿<!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+
+<html lang="en">
+
 <head>
-    <title>Teacher Login</title>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+<meta charset="UTF-8">
 
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyC_62TIZPMqqau9HbVNXtU0vl0hx7KKwzs",
-            authDomain: "jagadishguruji-e3740.firebaseapp.com",
-            projectId: "jagadishguruji-e3740",
-            storageBucket: "jagadishguruji-e3740.firebasestorage.app",
-            messagingSenderId: "42042944668",
-            appId: "1:42042944668:web:98c0ce8c215d29a8d49159",
-            measurementId: "G-QZYFS2JSP2"
-        };
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
 
-        // Login Function
-        window.login = async function () {
+<title>JagadishGuruji | Learning & Teaching Resources</title>
 
-            const username = document.getElementById("username").value.trim();
-            const password = document.getElementById("password").value;
-            const msg = document.getElementById("message");
+<meta name="description"
+      content="JagadishGuruji is an educational platform for children, parents and teachers, offering learning resources, teaching tools and useful educational software.">
 
-            if (!username || !password) {
-                msg.style.color = "red";
-                msg.innerText = "Please enter username and password";
-                return;
-            }
 
-            try {
+<link rel="canonical"
+      href="https://jagadishguruji-e3740.web.app/">      
 
-                // Find the teacher document
-                const userRef = doc(db, "config", username);
-                const userSnap = await getDoc(userRef);
 
-                if (userSnap.exists()) {
 
-                    const userData = userSnap.data();
+<meta name="robots" content="noindex, follow">
 
-                    const savedPassword = userData.password;
-                    const teacherName = userData.name;
-                    const designation = userData.Designation;
+<link rel="stylesheet" href="css/style.css">
 
-                    // Check password
-                    if (savedPassword === password) {
+<style>
 
-                        // Save teacher information for teachers.html
-                        localStorage.setItem("teacherName", teacherName);
-                        localStorage.setItem("designation", designation);
+    /* ==========================================
+       LOGIN PAGE
+       ========================================== */
 
-                        msg.style.color = "green";
-                        msg.innerText = "Login successful! Redirecting...";
+    .login-page {
 
-                        setTimeout(() => {
-                            window.location.href = "teachers.html";
-                        }, 1000);
+        min-height: calc(100vh - 150px);
 
-                    } else {
+        padding: 65px 6% 80px;
 
-                        msg.style.color = "red";
-                        msg.innerText = "Invalid password!";
+    }
 
-                    }
 
-                } else {
+    .login-heading {
 
-                    msg.style.color = "red";
-                    msg.innerText = "User not found!";
+        max-width: 700px;
 
-                }
+        margin: auto;
 
-            } catch (error) {
+        text-align: center;
 
-                console.error(error);
-                msg.style.color = "red";
-                msg.innerText = "Error: " + error.message;
+    }
 
-            }
-        };
-    </script>
+
+    .login-small {
+
+        color: #b55418;
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .login-heading h1 {
+
+        font-family: Georgia, serif;
+
+        font-size: clamp(40px, 5vw, 58px);
+
+        line-height: 1.15;
+
+        color: #40291e;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .login-heading h1 span {
+
+        color: #b55418;
+
+    }
+
+
+    .login-heading p {
+
+        color: #6c5a4c;
+
+        font-size: 17px;
+
+        line-height: 1.8;
+
+    }
+
+
+    /* ==========================================
+       LOGIN OPTIONS
+       ========================================== */
+
+    .login-options {
+
+        max-width: 900px;
+
+        margin: 50px auto 0;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 28px;
+
+    }
+
+
+    .login-card {
+
+        background: #fff;
+
+        border: 1px solid #eadfce;
+
+        border-radius: 22px;
+
+        padding: 38px;
+
+        text-align: center;
+
+        box-shadow:
+            0 10px 30px rgba(70, 45, 25, 0.07);
+
+        transition:
+            transform 0.25s ease,
+            box-shadow 0.25s ease,
+            border-color 0.25s ease;
+
+    }
+
+
+    .login-card:hover {
+
+        transform: translateY(-6px);
+
+        box-shadow:
+            0 20px 45px rgba(70, 45, 25, 0.12);
+
+        border-color: #d9985b;
+
+    }
+
+
+    .login-icon {
+
+        font-size: 52px;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .login-card h2 {
+
+        font-family: Georgia, serif;
+
+        font-size: 30px;
+
+        color: #452c20;
+
+        margin-bottom: 8px;
+
+    }
+
+
+    .login-card-subtitle {
+
+        color: #b55418;
+
+        font-weight: 600;
+
+        font-size: 14px;
+
+        margin-bottom: 16px;
+
+    }
+
+
+    .login-card-description {
+
+        color: #725f50;
+
+        font-size: 15px;
+
+        line-height: 1.7;
+
+        margin-bottom: 24px;
+
+    }
+
+
+    .login-button {
+
+        display: inline-block;
+
+        padding: 12px 28px;
+
+        border-radius: 30px;
+
+        background: #b55418;
+
+        color: white;
+
+        text-decoration: none;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        border: none;
+
+        cursor: pointer;
+
+        transition:
+            background 0.2s ease,
+            transform 0.2s ease;
+
+    }
+
+
+    .login-button:hover {
+
+        background: #8f3f16;
+
+        transform: translateY(-2px);
+
+    }
+
+
+    /* ==========================================
+       LOGIN FORM
+       ========================================== */
+
+    .login-form-container {
+
+        max-width: 470px;
+
+        margin: 45px auto 0;
+
+    }
+
+
+    .login-form-card {
+
+        position: relative;
+
+        background: #fff;
+
+        border: 1px solid #eadfce;
+
+        border-radius: 24px;
+
+        padding: 40px;
+
+        box-shadow:
+            0 15px 45px rgba(70, 45, 25, 0.12);
+
+        text-align: center;
+
+    }
+
+
+    .close-login {
+
+        position: absolute;
+
+        top: 15px;
+
+        right: 18px;
+
+        border: none;
+
+        background: transparent;
+
+        color: #806b5c;
+
+        font-size: 28px;
+
+        cursor: pointer;
+
+    }
+
+
+    .login-form-icon {
+
+        font-size: 48px;
+
+        margin-bottom: 10px;
+
+    }
+
+
+    .login-form-card h2 {
+
+        font-family: Georgia, serif;
+
+        color: #452c20;
+
+        font-size: 30px;
+
+        margin-bottom: 8px;
+
+    }
+
+
+    #selectedRoleText {
+
+        color: #725f50;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .login-form-card form {
+
+        text-align: left;
+
+    }
+
+
+    .login-form-card label {
+
+        display: block;
+
+        color: #4d392d;
+
+        font-weight: 600;
+
+        font-size: 14px;
+
+        margin: 15px 0 7px;
+
+    }
+
+
+    .login-form-card input {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+        padding: 12px 14px;
+
+        border: 1px solid #d9c8b7;
+
+        border-radius: 10px;
+
+        background: #fffdf9;
+
+        color: #3f3027;
+
+        font-size: 15px;
+
+        outline: none;
+
+    }
+
+
+    .login-form-card input:focus {
+
+        border-color: #b55418;
+
+        box-shadow:
+            0 0 0 3px rgba(181, 84, 24, 0.10);
+
+    }
+
+
+    .login-submit {
+
+        width: 100%;
+
+        margin-top: 25px;
+
+        padding: 13px;
+
+        border: none;
+
+        border-radius: 30px;
+
+        background: #b55418;
+
+        color: white;
+
+        font-size: 15px;
+
+        font-weight: 700;
+
+        cursor: pointer;
+
+    }
+
+
+    .login-submit:hover {
+
+        background: #8f3f16;
+
+    }
+
+
+    #loginMessage {
+
+        min-height: 22px;
+
+        margin-top: 18px;
+
+        font-size: 14px;
+
+        font-weight: 600;
+
+    }
+
+
+    .login-help {
+
+        margin-top: 20px;
+
+        font-size: 13px;
+
+        color: #806b5c;
+
+    }
+
+
+    /* ==========================================
+       NOTE
+       ========================================== */
+
+    .login-note {
+
+        max-width: 700px;
+
+        margin: 45px auto 0;
+
+        padding: 20px 25px;
+
+        background: #f7ead8;
+
+        border-radius: 16px;
+
+        text-align: center;
+
+        color: #6c594b;
+
+        font-size: 14px;
+
+        line-height: 1.7;
+
+    }
+
+
+    .login-note strong {
+
+        color: #8f3f16;
+
+    }
+
+
+    /* ==========================================
+       MOBILE
+       ========================================== */
+
+    @media (max-width: 700px) {
+
+        .login-page {
+
+            padding-top: 50px;
+
+        }
+
+
+        .login-options {
+
+            grid-template-columns: 1fr;
+
+            max-width: 500px;
+
+        }
+
+
+        .login-card {
+
+            padding: 32px 25px;
+
+        }
+
+
+        .login-form-card {
+
+            padding: 35px 25px;
+
+        }
+
+    }
+
+</style>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5624414458021443"
+     crossorigin="anonymous"></script>
 
 </head>
 
 <body>
 
-    <h2>Teacher Login</h2>
+<!-- ==========================================
+     HEADER
+     ========================================== -->
 
-    <input type="text"
-           id="username"
-           placeholder="Enter Username">
+<header class="site-header">
 
-    <br><br>
+    <div class="brand">
 
-    <input type="password"
-           id="password"
-           placeholder="Enter Password">
+        <span class="brand-symbol">🪷</span>
 
-    <br><br>
+        <span class="brand-name">
+            JagadishGuruji
+        </span>
 
-    <button onclick="login()">Login</button>
+    </div>
 
-    <p id="message" style="color:red;"></p>
+
+    <nav class="main-nav">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="child.html">
+            Child
+        </a>
+
+        <a href="softwares.html">
+            Resources
+        </a>
+
+        <a href="login.html" class="active">
+            Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ==========================================
+     MAIN
+     ========================================== -->
+
+<main>
+
+    <section class="login-page">
+
+
+        <div class="login-heading">
+
+            <p class="login-small">
+                WELCOME BACK
+            </p>
+
+            <h1>
+                One place.<br>
+                <span>Two communities.</span>
+            </h1>
+
+            <p>
+                Choose your doorway below.
+                Teachers and parents have different
+                spaces, each designed for their own purpose.
+            </p>
+
+        </div>
+
+
+
+        <!-- ======================================
+             TWO LOGIN OPTIONS
+             ====================================== -->
+
+        <div class="login-options">
+
+
+            <!-- TEACHER -->
+
+            <div class="login-card">
+
+                <div class="login-icon">
+                    🧑‍🏫
+                </div>
+
+                <h2>
+                    Teacher
+                </h2>
+
+                <p class="login-card-subtitle">
+                    Teach • Empower • Inspire
+                </p>
+
+                <p class="login-card-description">
+                    Access teaching resources, useful
+                    applications, letters, information
+                    and tools to support your work.
+                </p>
+
+                <button
+                    class="login-button"
+                    onclick="showLoginForm('teacher')"
+                >
+                    Teacher Login →
+                </button>
+
+            </div>
+
+
+
+            <!-- PARENT -->
+
+            <div class="login-card">
+
+                <div class="login-icon">
+                    👨‍👩‍👧
+                </div>
+
+                <h2>
+                    Parent
+                </h2>
+
+                <p class="login-card-subtitle">
+                    Know • Support • Encourage
+                </p>
+
+                <p class="login-card-description">
+                    Stay connected with your child's
+                    learning, homework, progress and
+                    portfolio.
+                </p>
+
+                <button
+                    class="login-button"
+                    onclick="showLoginForm('parent')"
+                >
+                    Parent Login →
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ======================================
+             LOGIN FORM
+             ====================================== -->
+
+        <div
+            id="loginFormContainer"
+            class="login-form-container"
+            style="display:none;"
+        >
+
+            <div class="login-form-card">
+
+
+                <button
+                    type="button"
+                    class="close-login"
+                    onclick="closeLoginForm()"
+                >
+                    ×
+                </button>
+
+
+                <div
+                    id="selectedRoleIcon"
+                    class="login-form-icon"
+                >
+                    🧑‍🏫
+                </div>
+
+
+                <h2 id="selectedRoleTitle">
+                    Teacher Login
+                </h2>
+
+
+                <p id="selectedRoleText">
+                    Sign in to continue.
+                </p>
+
+
+
+                <form id="loginForm">
+
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="username"
+                        placeholder="Enter username"
+                        autocomplete="username"
+                        required
+                    >
+
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        placeholder="Enter password"
+                        autocomplete="current-password"
+                        required
+                    >
+
+
+                    <button
+                        type="submit"
+                        class="login-submit"
+                    >
+                        Sign In
+                    </button>
+
+
+                </form>
+
+
+                <p id="loginMessage"></p>
+
+
+                <p class="login-help">
+                    Login problems?
+                    Please contact the administrator.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ======================================
+             CHILD NOTE
+             ====================================== -->
+
+        <div class="login-note">
+
+            <strong>
+                Children do not need to log in.
+            </strong>
+
+            <br>
+
+            Public learning resources are available
+            directly through the Child section.
+
+        </div>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- ==========================================
+     FOOTER
+     ========================================== -->
+
+<footer class="site-footer">
+
+    <div>
+        <strong>JagadishGuruji</strong>
+    </div>
+
+    <p>
+        A simple space for learning and teaching.
+    </p>
+
+    <p class="copyright">
+
+        © <span id="currentYear"></span>
+        JagadishGuruji
+
+    </p>
+
+</footer>
+
+
+
+<!-- ==========================================
+     COMMON JAVASCRIPT
+     ========================================== -->
+
+<script src="js/site.js"></script>
+
+
+
+<!-- ==========================================
+     FIREBASE LOGIN
+     ========================================== -->
+
+<script type="module">
+
+    import { initializeApp }
+        from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+
+
+    import {
+        getFirestore,
+        doc,
+        getDoc
+    }
+    from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+
+
+    // ==========================================
+    // FIREBASE CONFIGURATION
+    // ==========================================
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyC_62TIZPMqqau9HbVNXtU0vl0hx7KKwzs",
+
+        authDomain:
+            "jagadishguruji-e3740.firebaseapp.com",
+
+        projectId:
+            "jagadishguruji-e3740",
+
+        storageBucket:
+            "jagadishguruji-e3740.firebasestorage.app",
+
+        messagingSenderId:
+            "42042944668",
+
+        appId:
+            "1:42042944668:web:98c0ce8c215d29a8d49159",
+
+        measurementId:
+            "G-QZYFS2JSP2"
+
+    };
+
+
+    // ==========================================
+    // INITIALIZE FIREBASE
+    // ==========================================
+
+    const app =
+        initializeApp(firebaseConfig);
+
+    const db =
+        getFirestore(app);
+
+
+
+    // ==========================================
+    // SELECTED LOGIN ROLE
+    // ==========================================
+
+    let selectedRole = "";
+
+
+
+    window.showLoginForm = function (role) {
+
+        selectedRole = role;
+
+
+        const container =
+            document.getElementById(
+                "loginFormContainer"
+            );
+
+
+        const icon =
+            document.getElementById(
+                "selectedRoleIcon"
+            );
+
+
+        const title =
+            document.getElementById(
+                "selectedRoleTitle"
+            );
+
+
+        const text =
+            document.getElementById(
+                "selectedRoleText"
+            );
+
+
+        if (role === "teacher") {
+
+            icon.textContent = "🧑‍🏫";
+
+            title.textContent =
+                "Teacher Login";
+
+            text.textContent =
+                "Sign in to access the Teacher area.";
+
+        }
+
+
+        if (role === "parent") {
+
+            icon.textContent = "👨‍👩‍👧";
+
+            title.textContent =
+                "Parent Login";
+
+            text.textContent =
+                "Parent login will be connected here.";
+
+        }
+
+
+        container.style.display = "block";
+
+
+        container.scrollIntoView({
+
+            behavior: "smooth",
+
+            block: "center"
+
+        });
+
+
+        document
+            .getElementById("username")
+            .focus();
+
+    };
+
+
+
+    // ==========================================
+    // CLOSE LOGIN FORM
+    // ==========================================
+
+    window.closeLoginForm = function () {
+
+        document.getElementById(
+            "loginFormContainer"
+        ).style.display = "none";
+
+    };
+
+
+
+    // ==========================================
+    // LOGIN
+    // ==========================================
+
+    document
+        .getElementById("loginForm")
+        .addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+
+                const username =
+                    document
+                        .getElementById("username")
+                        .value
+                        .trim();
+
+
+                const password =
+                    document
+                        .getElementById("password")
+                        .value;
+
+
+                const msg =
+                    document
+                        .getElementById("loginMessage");
+
+
+                msg.style.color = "#b55418";
+
+                msg.innerText =
+                    "Checking login...";
+
+
+
+                // ==================================
+                // PARENT — NOT CONNECTED YET
+                // ==================================
+
+                if (selectedRole === "parent") {
+
+                    msg.style.color = "#b55418";
+
+                    msg.innerText =
+                        "Parent login will be connected after the parent account structure is created.";
+
+                    return;
+
+                }
+
+
+
+                // ==================================
+                // VALIDATION
+                // ==================================
+
+                if (!username || !password) {
+
+                    msg.style.color = "red";
+
+                    msg.innerText =
+                        "Please enter username and password.";
+
+                    return;
+
+                }
+
+
+
+                try {
+
+
+                    // ==============================
+                    // FIRESTORE USER DOCUMENT
+                    // ==============================
+
+                    const userRef =
+                        doc(
+                            db,
+                            "config",
+                            username
+                        );
+
+
+                    const userSnap =
+                        await getDoc(userRef);
+
+
+
+                    if (!userSnap.exists()) {
+
+                        msg.style.color = "red";
+
+                        msg.innerText =
+                            "User not found.";
+
+                        return;
+
+                    }
+
+
+
+                    const userData =
+                        userSnap.data();
+
+
+                    const savedPassword =
+                        userData.password;
+
+
+                    const teacherName =
+                        userData.name;
+
+
+                    const designation =
+                        userData.Designation;
+
+
+
+                    // ==============================
+                    // PASSWORD CHECK
+                    // ==============================
+
+                    if (savedPassword !== password) {
+
+                        msg.style.color = "red";
+
+                        msg.innerText =
+                            "Invalid password.";
+
+                        return;
+
+                    }
+
+
+
+                    // ==============================
+                    // SAVE TEACHER INFORMATION
+                    // ==============================
+
+                    localStorage.setItem(
+                        "teacherName",
+                        teacherName || ""
+                    );
+
+
+                    localStorage.setItem(
+                        "designation",
+                        designation || ""
+                    );
+
+
+                    localStorage.setItem(
+                        "loginRole",
+                        "teacher"
+                    );
+
+
+                    localStorage.setItem(
+                        "username",
+                        username
+                    );
+
+
+
+                    // ==============================
+                    // SUCCESS
+                    // ==============================
+
+                    msg.style.color = "green";
+
+                    msg.innerText =
+                        "Login successful! Redirecting...";
+
+
+                    setTimeout(
+                        function () {
+
+                            window.location.href =
+                                "teachers.html";
+
+                        },
+                        800
+                    );
+
+
+                }
+
+
+                catch (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
+                    );
+
+
+                    msg.style.color = "red";
+
+                    msg.innerText =
+                        "Login error: " +
+                        error.message;
+
+                }
+
+            }
+        );
+
+</script>
 
 </body>
+
 </html>

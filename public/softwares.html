@@ -1,40 +1,465 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en">
+
 <head>
-    <title>Softwares</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="style1.css" />
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>JagadishGuruji | Educational Software & Learning Resources</title>
+
+<meta name="description"
+      content="Explore educational software, learning resources and useful digital tools for children, parents and teachers at JagadishGuruji.">
+
+
+<link rel="canonical"
+      href="https://jagadishguruji-e3740.web.app/">      
+
+
+
+<meta name="robots" content="noindex, follow">
+
+<link rel="stylesheet" href="css/style.css">
+
+
+<style>
+
+    .resources-page {
+
+        min-height: calc(100vh - 150px);
+
+        padding: 70px 6% 90px;
+
+    }
+
+
+    .resources-hero {
+
+        max-width: 850px;
+
+        margin: auto;
+
+        text-align: center;
+
+    }
+
+
+    .resources-eyebrow {
+
+        color: #b55418;
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+        letter-spacing: 2px;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .resources-hero h1 {
+
+        font-family: Georgia, serif;
+
+        font-size: clamp(40px, 5vw, 58px);
+
+        line-height: 1.15;
+
+        color: #40291e;
+
+        margin-bottom: 18px;
+
+    }
+
+
+    .resources-hero h1 span {
+
+        color: #b55418;
+
+    }
+
+
+    .resources-hero p {
+
+        color: #6c5a4c;
+
+        font-size: 17px;
+
+        line-height: 1.8;
+
+    }
+
+
+    .resource-message {
+
+        max-width: 850px;
+
+        margin: 55px auto 0;
+
+        padding: 50px 35px;
+
+        text-align: center;
+
+        background: #fff;
+
+        border: 1px solid #eadfce;
+
+        border-radius: 25px;
+
+        box-shadow:
+            0 12px 35px rgba(70, 45, 25, 0.07);
+
+    }
+
+
+    .resource-message-icon {
+
+        font-size: 60px;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .resource-message h2 {
+
+        font-family: Georgia, serif;
+
+        color: #452c20;
+
+        font-size: 32px;
+
+        margin-bottom: 15px;
+
+    }
+
+
+    .resource-message p {
+
+        max-width: 650px;
+
+        margin: auto;
+
+        color: #725f50;
+
+        line-height: 1.8;
+
+    }
+
+
+    .resource-types {
+
+        max-width: 950px;
+
+        margin: 45px auto 0;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 20px;
+
+    }
+
+
+    .resource-type {
+
+        padding: 25px;
+
+        background: #fff8ed;
+
+        border: 1px solid #ead8c3;
+
+        border-radius: 18px;
+
+        text-align: center;
+
+    }
+
+
+    .resource-type .icon {
+
+        font-size: 35px;
+
+        margin-bottom: 10px;
+
+    }
+
+
+    .resource-type h3 {
+
+        font-family: Georgia, serif;
+
+        color: #452c20;
+
+        margin: 0 0 7px;
+
+    }
+
+
+    .resource-type p {
+
+        color: #786659;
+
+        font-size: 14px;
+
+        line-height: 1.6;
+
+        margin: 0;
+
+    }
+
+
+    .future-note {
+
+        max-width: 700px;
+
+        margin: 45px auto 0;
+
+        text-align: center;
+
+        color: #806b5c;
+
+        font-size: 14px;
+
+        line-height: 1.8;
+
+    }
+
+
+    @media (max-width: 750px) {
+
+        .resource-types {
+
+            grid-template-columns: 1fr;
+
+        }
+
+
+        .resource-message {
+
+            padding: 40px 25px;
+
+        }
+
+    }
+
+</style>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5624414458021443"
+     crossorigin="anonymous"></script>
+
 </head>
+
 <body>
-    <header>
-        <h1>Welcome to my Softwares page</h1>
-        <p>Here you can download my android and Windows Apps </p>
 
-    </header>
-    <main>
-        <section>
-            <h2>Android Apps</h2>
-            <ul>
-                <li>
-                    <h3>App 1</h3>
-                    <p>This app will help you save time pdf</p>
-                    <a href="resources/ad.pdf" download>Download</a>
-                </li>
-                <li>
-                    <h3>App 2</h3>
-                    <p>This app will help you save time</p>
-                    <a href="resources/ad.pdf" download>Download</a>
-                </li>
+<!-- ==========================================
+     HEADER
+     ========================================== -->
 
-            </ul>
+<header class="site-header">
 
-        </section>
+    <div class="brand">
 
-    </main>
-    <footer>
-        <p>&copy; 2025 C.J. Rao All rights reserved</p>
-    </footer>
+        <span class="brand-symbol">🪷</span>
+
+        <span class="brand-name">
+            JagadishGuruji
+        </span>
+
+    </div>
+
+
+    <nav class="main-nav">
+
+        <a href="index.html">
+            Home
+        </a>
+
+        <a href="child.html">
+            Child
+        </a>
+
+        <a href="softwares.html" class="active">
+            Resources
+        </a>
+
+        <a href="login.html">
+            Login
+        </a>
+
+    </nav>
+
+</header>
+
+
+
+<!-- ==========================================
+     MAIN
+     ========================================== -->
+
+<main>
+
+    <section class="resources-page">
+
+
+        <div class="resources-hero">
+
+            <div class="resources-eyebrow">
+                RESOURCES & SOFTWARE
+            </div>
+
+            <h1>
+                Tools for
+                <span>Learning & Teaching</span>
+            </h1>
+
+            <p>
+                A growing collection of educational
+                resources, useful software and simple
+                tools for children, parents and teachers.
+            </p>
+
+        </div>
+
+
+
+        <div class="resource-message">
+
+            <div class="resource-message-icon">
+                🪷
+            </div>
+
+            <h2>
+                This space is just beginning.
+            </h2>
+
+            <p>
+                New resources and software will be
+                added here gradually. Some will help
+                children learn, some will help teachers
+                teach, and some will help parents stay
+                connected with learning.
+            </p>
+
+        </div>
+
+
+
+        <!-- ======================================
+             RESOURCE TYPES
+             ====================================== -->
+
+        <div class="resource-types">
+
+
+            <div class="resource-type">
+
+                <div class="icon">
+                    📚
+                </div>
+
+                <h3>
+                    Learning Resources
+                </h3>
+
+                <p>
+                    Lessons, notes, activities,
+                    practice materials and references.
+                </p>
+
+            </div>
+
+
+
+            <div class="resource-type">
+
+                <div class="icon">
+                    💻
+                </div>
+
+                <h3>
+                    Educational Software
+                </h3>
+
+                <p>
+                    Small applications and learning
+                    tools developed for students and teachers.
+                </p>
+
+            </div>
+
+
+
+            <div class="resource-type">
+
+                <div class="icon">
+                    🧰
+                </div>
+
+                <h3>
+                    Teacher Tools
+                </h3>
+
+                <p>
+                    Practical utilities to make
+                    everyday teaching work easier.
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+
+        <p class="future-note">
+
+            More sections will appear here as they are
+            developed. The aim is simple: useful things,
+            thoughtfully made, gathered in one place.
+
+        </p>
+
+
+    </section>
+
+</main>
+
+
+
+<!-- ==========================================
+     FOOTER
+     ========================================== -->
+
+<footer class="site-footer">
+
+    <div>
+        <strong>JagadishGuruji</strong>
+    </div>
+
+    <p>
+        A simple space for learning and teaching.
+    </p>
+
+    <p class="copyright">
+
+        © <span id="currentYear"></span>
+        JagadishGuruji
+
+    </p>
+
+</footer>
+
+
+<script src="js/site.js"></script>
 
 </body>
+
 </html>

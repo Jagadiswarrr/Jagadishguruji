@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Disallow: /login.html
+Disallow: /teachers.html
+
+Sitemap: https://jagadishguruji-e3740.web.app/sitemap.xml
